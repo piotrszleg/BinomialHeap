@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinomialHeapTest {
@@ -56,12 +58,12 @@ class BinomialHeapTest {
 
     @org.junit.jupiter.api.Test
     void minimum() {
-        assertEquals(testHeap.minimum().key, 1);
+        assertEquals(testHeap.minimum().getKey(), 1);
     }
 
     @org.junit.jupiter.api.Test
     void extractMin() {
-        assertEquals(testHeap.extractMin().key, 1);
+        assertEquals(testHeap.extractMin().getKey(), 1);
         assertTrue(testHeap.isCorrect());
         assertFalse(testHeap.contains(1));
     }
@@ -86,5 +88,41 @@ class BinomialHeapTest {
         BinomialHeap.Node<Integer> node=testHeap.insert(7);
         testHeap.delete(node, Integer.MIN_VALUE);
         assertTrue(testHeap.contains(7));
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteKey() {
+        testHeap.delete(10, Integer.MIN_VALUE);
+        assertTrue(testHeap.contains(10));
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteKeyNonExistent() {
+        testHeap.delete(0, Integer.MIN_VALUE);
+        assertTrue(testHeap.contains(0));
+    }
+
+    @org.junit.jupiter.api.Test
+    void bigDataset(){
+        int elementsRange=20;
+        int count=20;
+
+        BinomialHeap<Integer> heap=new BinomialHeap<>();
+        Random random=new Random(321);
+
+        for(int i=0; i<count; i++){
+            // more actions (75% in this case) should be insertions
+            // so that it is more likely we first add an element and then delete it
+            boolean insertionOrDeletion=random.nextFloat()<0.75f;
+            Integer element=random.nextInt(elementsRange);
+            if(insertionOrDeletion){
+                heap.insert(element);
+                assertTrue(heap.contains(element));
+            } else {
+                heap.delete(element, Integer.MIN_VALUE);
+                assertFalse(heap.contains(element));
+            }
+            assertTrue(heap.isCorrect());
+        }
     }
 }
