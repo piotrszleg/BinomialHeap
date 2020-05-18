@@ -85,21 +85,21 @@ class BinomialHeapTest {
 
     @org.junit.jupiter.api.Test
     void delete() {
-        BinomialHeap.Node<Integer> node=testHeap.insert(7);
+        BinomialHeap.Node<Integer> node=testHeap.insert(11);
         testHeap.delete(node, Integer.MIN_VALUE);
-        assertTrue(testHeap.contains(7));
+        assertFalse(testHeap.contains(11));
     }
 
     @org.junit.jupiter.api.Test
     void deleteKey() {
         testHeap.delete(10, Integer.MIN_VALUE);
-        assertTrue(testHeap.contains(10));
+        assertFalse(testHeap.contains(10));
     }
 
     @org.junit.jupiter.api.Test
     void deleteKeyNonExistent() {
         testHeap.delete(0, Integer.MIN_VALUE);
-        assertTrue(testHeap.contains(0));
+        assertFalse(testHeap.contains(0));
     }
 
     @org.junit.jupiter.api.Test
