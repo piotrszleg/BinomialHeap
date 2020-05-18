@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BinomialHeapTest {
 
-    Integer[] testArray=new Integer[]{1,5,6};
+    final Integer[] testArray=new Integer[]{1,5,6};
 
     @org.junit.jupiter.api.Test
     void insertContains() {
