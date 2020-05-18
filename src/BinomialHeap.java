@@ -109,7 +109,11 @@ public class BinomialHeap<T extends Comparable<T>> {
         } else if(node.getKey().compareTo(key)==0){
             return node;
         } else {
-            Node<T> fromChild=findRecursive(node.getChild(), key);
+            Node<T> fromChild=null;
+            // it only makes sense to check children if searched key is bigger than node.key
+            if(node.getKey().compareTo(key)<0){
+                fromChild=findRecursive(node.getChild(), key);
+            }
             if(fromChild!=null) {
                 return fromChild;
             } else {
