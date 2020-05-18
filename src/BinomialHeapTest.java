@@ -56,7 +56,7 @@ class BinomialHeapTest {
 
     @org.junit.jupiter.api.Test
     void minimum() {
-        assertEquals(testHeap.minimum(), 1);
+        assertEquals(testHeap.minimum().key, 1);
     }
 
     @org.junit.jupiter.api.Test

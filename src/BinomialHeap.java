@@ -33,7 +33,7 @@ public class BinomialHeap<T extends Comparable<T>> {
     }
 
     public Node<T> insert(T key){
-        BinomialHeap<T> newH=new BinomialHeap<T>();
+        BinomialHeap<T> newH=new BinomialHeap<>();
         Node<T> x= new Node<>();
         x.p=null;
         x.child=null;
@@ -68,7 +68,7 @@ public class BinomialHeap<T extends Comparable<T>> {
         return find(key)!=null;
     }
 
-    T minimum(){
+    Node<T> minimum(){
         Node<T> y=null;
         Node<T> x=head;
         T min=null;
@@ -79,7 +79,7 @@ public class BinomialHeap<T extends Comparable<T>> {
             }
             x=x.sibling;
         }
-        return y.key;
+        return y;
     }
 
     private Node<T> extractMinRoot(){
@@ -96,9 +96,11 @@ public class BinomialHeap<T extends Comparable<T>> {
         }
         if (x_previous != null) {
             x_previous.sibling = x.sibling;
-        } else {
+        } else if(x!=null) {
             // x was head
             head = x.sibling;
+        } else {
+            head=null;
         }
         return x;
     }
@@ -155,11 +157,10 @@ public class BinomialHeap<T extends Comparable<T>> {
             }
             if(result==null){
                 result=toInsert;
-                current=toInsert;
             } else {
                 current.sibling=toInsert;
-                current=toInsert;
             }
+            current=toInsert;
         }
         return result;
     }
