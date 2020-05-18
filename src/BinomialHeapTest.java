@@ -87,28 +87,42 @@ class BinomialHeapTest {
     void delete() {
         BinomialHeap.Node<Integer> node=testHeap.insert(11);
         testHeap.delete(node, Integer.MIN_VALUE);
+        assertTrue(testHeap.isCorrect());
         assertFalse(testHeap.contains(11));
     }
 
     @org.junit.jupiter.api.Test
     void deleteKey() {
         testHeap.delete(10, Integer.MIN_VALUE);
+        assertTrue(testHeap.isCorrect());
         assertFalse(testHeap.contains(10));
     }
 
     @org.junit.jupiter.api.Test
     void deleteKeyNonExistent() {
         testHeap.delete(0, Integer.MIN_VALUE);
+        assertTrue(testHeap.isCorrect());
         assertFalse(testHeap.contains(0));
+    }
+
+    @org.junit.jupiter.api.Test
+    void doubleInsert() {
+        testHeap.insert(11);
+        testHeap.insert(11);
+        assertTrue(testHeap.contains(11));
+        assertTrue(testHeap.isCorrect());
+        testHeap.delete(11, Integer.MIN_VALUE);
+        assertTrue(testHeap.isCorrect());
+        assertFalse(testHeap.contains(11));
     }
 
     @org.junit.jupiter.api.Test
     void bigDataset(){
         int elementsRange=20;
-        int count=20;
+        int count=100;
 
         BinomialHeap<Integer> heap=new BinomialHeap<>();
-        Random random=new Random(321);
+        Random random=new Random(123);
 
         for(int i=0; i<count; i++){
             // more actions (75% in this case) should be insertions

@@ -79,7 +79,18 @@ public class BinomialHeap<T extends Comparable<T>> {
         }
     }
 
+    /* This method is slower than the one below,
+       but it won't generate duplicate nodes when we insert one element two times */
     public Node<T> insert(T key){
+        Node<T> contained=find(key);
+        if(contained==null){
+            return insertNotContained(key);
+        } else {
+            return contained;
+        }
+    }
+
+    public Node<T> insertNotContained(T key){
         BinomialHeap<T> newH=new BinomialHeap<>();
         Node<T> x= new Node<>();
         x.setParent(null);
